@@ -1,0 +1,106 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+/* vv solarized vv *//*
+$base03:    #002b36;
+$base02:    #073642;
+$base01:    #586e75;
+$base00:    #657b83;
+$base0:     #839496;
+$base1:     #93a1a1;
+$base2:     #eee8d5;
+$base3:     #fdf6e3;
+$yellow:    #b58900;
+$orange:    #cb4b16;
+$red:       #dc322f;
+$magenta:   #d33682;
+$violet:    #6c71c4;
+$blue:      #268bd2;
+$cyan:      #2aa198;
+$green:     #859900;
+@mixin rebase($rebase03,$rebase02,$rebase01,$rebase00,$rebase0,$rebase1,$rebase2,$rebase3) {
+  background-color:$rebase03;
+  color:$rebase0;
+  * { color:$rebase0; }
+  h1,h2,h3,h4,h5,h6 { color:$rebase1; border-color: $rebase0; }
+  a, a:active, a:visited { color: $rebase1; }
+}
+
+@mixin accentize($accent) {
+  a, a:active, a:visited, code.url { color: $accent; }
+  h1,h2,h3,h4,h5,h6 {color:$accent}
+}
+*//* light is default mode, so pair with general html definition *//*
+html, .light { @include rebase($base3,$base2,$base1,$base0,$base00,$base01,$base02,$base03)}
+.dark  { @include rebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3)}
+html * {
+  color-profile: sRGB;
+  rendering-intent: auto;
+}
+*//* ^^ solarized ^^ */
+
+@import 'susy';
+@import 'compass/css3/box-shadow';
+@import 'compass/css3/border-radius';
+
+$total-columns: 12; // a 12-column grid
+$column-width: 4em; // each column is 4em wide
+$gutter-width: 1em; // 1em gutters between columns
+$grid-padding: $gutter-width; // grid-padding equal to gutters
+/*$container-style: fluid;*/
+/*$container-style: static;*/
+$container-style: magic;
+$container-width: 1140px;
+
+$grid-background-column-color: blue;
+
+nav, article {
+  @include box-shadow;
+  @include border-radius(1em);
+}
+
+.page {
+  // page acts as a container for our grid.
+  @include container;
+
+  // header and footer are full-width by default.
+  header, footer { clear: both; }
+
+  // nav spans 3 columns of total 12.
+  nav {
+    @include span-columns(3,12);
+  }
+
+  article {
+    // content spans the final (omega) 9 columns of 12.
+    @include span-columns(9 omega,12);
+
+    // main content spans 6 of those 9 columns.
+    .main { @include span-columns(6,9); }
+
+    // secondary content spans the final 3 (omega) of 9 columns.
+    .secondary { @include span-columns(3 omega,9); }
+  }
+
+  // Create a media-query breakpoint at a min-width of 30em
+  // And use a larger 8-column grid within that media-query.
+  @include at-breakpoint(30em 8) {
+    // Establish our new 8-column container.
+    @include container;
+  }
+
+  #party { @include span-columns(4, 12); }
+  .bride { @include span-columns(4, 7); float: left; }
+  .groom { @include span-columns(8, 11); float: left; }
+}
