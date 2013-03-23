@@ -91,6 +91,13 @@ nav, article {
 
     // secondary content spans the final 3 (omega) of 9 columns.
     .secondary { @include span-columns(3 omega,9); }
+
+    #party {
+      @include container;
+      .bride { @include container; }
+      .groom { @include container; }
+      .member { margin-top: 1em; }
+    }
   }
 
   // Create a media-query breakpoint at a min-width of 30em
@@ -99,8 +106,4 @@ nav, article {
     // Establish our new 8-column container.
     @include container;
   }
-
-  #party { @include span-columns(4, 12); }
-  .bride { @include span-columns(4, 7); float: left; }
-  .groom { @include span-columns(8, 11); float: left; }
 }
